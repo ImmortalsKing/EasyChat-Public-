@@ -1,0 +1,66 @@
+{% extends 'shared/_messenger_layout.html' %}
+{% load static %}
+{% load render_partial %}
+
+{% block title %}Chat Page{% endblock %}
+{% block content %}
+    <div class="chitchat-loader">
+        <div><img src="{% static 'images/logo/easychat-logo.png' %}" alt=""/>
+            <h3>Loading ...</h3>
+        </div>
+    </div>
+    <div class="chitchat-container sidebar-toggle">
+        {% render_partial 'chat_module.views.SidebarComponent' %}
+        <div class="chitchat-main small-sidebar" id="content">
+            <div class="chat-content tabto active">
+                <div class="messages custom-scroll active" id="blank">
+                    <div class="contact-details">
+                        <div class="row">
+                            <div class="col-7">
+                                    <div class="media-right">
+                                        <ul>
+                                            <li><a class="icon-btn btn-light button-effect mobile-sidebar" href="#">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                     class="feather feather-chevron-left">
+                                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                                </svg>
+                                            </a></li>
+                                        </ul>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-chat">
+                        <div class="rightchat animat-rate">
+                            <div class="bg_circle">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="cross"></div>
+                            <div class="cross1"></div>
+                            <div class="cross2"></div>
+                            <div class="dot"></div>
+                            <div class="dot1"></div>
+                        </div>
+                    </div>
+                    <div class="call-list-center"><img src="{% static 'images/chat.png' %}" alt="">
+                        <div class="animated-bg"><i></i><i></i><i></i></div>
+                        <p>Select a chat to read messages</p>
+                    </div>
+                </div>
+            </div>
+            {% render_partial 'chat_module.views.ContactTodoComponent' %}
+        </div>
+    </div>
+{% endblock %}

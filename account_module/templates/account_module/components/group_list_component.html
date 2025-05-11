@@ -1,0 +1,83 @@
+{% load static %}
+
+<div class="login-content">
+    <div class="login-content-header"><img style="width: 50%;height: auto;"
+                                           src="{% static 'images/logo/new_logo.png' %}"
+                                           alt="images">
+    </div>
+    <h3>Hello dear admin</h3>
+    <h4>Here is the list of all groups.</h4>
+    <h4>You can create new group or delete old ones.</h4>
+    <div class="form1">
+        <table>
+            <thead>
+            <tr>
+                <th>Group Title</th>
+                <th>Created At</th>
+                <th>Is Active</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for group in groups %}
+                <tr>
+                    <td>
+                        <a>{{ group.title }}</a>
+                    </td>
+                    <td>
+                        <a>{{ group.created_at }}</a>
+                    </td>
+                    {% if group.is_active %}
+                        <td><a class="badge badge-outline-success font_label">Active</a></td>
+                    {% else %}
+                        <td><a class="badge badge-outline-danger font_label">Inactive</a>
+                        </td>
+                    {% endif %}
+                    <td>
+                        <a class="icon-btn btn-light btn-sm" href="{% url 'groups_edit_page' slug=group.slug %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd"
+                                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                            </svg>
+                        </a>
+                    </td>
+                    <td>
+                        <form action="{% url 'groups_list_page' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="group_slug" value="{{ group.slug }}">
+                            <button type="submit" name="delete_group_btn" style="cursor: pointer;" class="icon-btn btn-danger btn-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                            </svg>
+                        </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">«</a>
+            {% endif %}
+            {% for pageNumber in paginator.page_range %}
+                <a href="?page={{ pageNumber }}"
+                   class="{% if page_obj.number == pageNumber %}active{% endif %}">{{ pageNumber }}</a>
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">»</a>
+            {% endif %}
+        </div>
+        <br>
+        <br>
+        <div class="badge badge-danger xl rounded font_label"><a style="color:white;"
+                                                                 href="{% url 'main_page' %}">Back
+            to main page</a></div>
+    </div>
+</div>

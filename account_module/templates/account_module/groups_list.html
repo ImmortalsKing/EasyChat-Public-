@@ -1,0 +1,160 @@
+{% load render_partial %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Groups List</title>
+    {% include 'shared/header_references.html' %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+        .pagination .active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="login-page1">
+    <div class="container-fluid p-0"></div>
+    <div class="row">
+        <div class="col-12">
+            <div class="login-contain-main">
+                <div class="left-page">
+                    {% render_partial 'account_module.views.GroupsListComponent' %}
+                    <div class="right-page">
+                        <div class="right-login animat-rate">
+                            <div class="bg_circle">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="cross"></div>
+                            <div class="cross1"></div>
+                            <div class="cross2"></div>
+                            <div class="dot"></div>
+                            <div class="dot1"></div>
+                            {#                            <div class="maincircle"></div>#}
+{#                            <div class="top-circle"></div>#}
+                            <div class="center-circle"></div>
+                            <div class="bottom-circle"></div>
+                            <div class="bottom-circle1"></div>
+                            <div class="right-circle"></div>
+                            <div class="right-circle1"></div>
+                            <div style="margin-top: 3rem">
+                                <form action="" method="post"
+                                      class="form2" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                            {{ form.title.label_tag }}
+                                            <div readonly="readonly">{{ form.title }}</div>
+                                            {% if form.title.errors %}
+                                                <div class="alert alert-danger">
+                                                    {% for error in form.title.errors %}
+                                                        {{ error }}
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.about.label_tag }}
+                                        {{ form.about }}
+                                        {% if form.about.errors %}
+                                            <div class="alert alert-danger">
+                                                {% for error in form.about.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.avatar.label_tag }}
+                                        {{ form.avatar }}
+                                        {% if form.avatar.errors %}
+                                            <div class="alert alert-danger">
+                                                {% for error in form.avatar.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.members.label_tag }}
+                                        {{ form.members }}
+                                        {% if form.members.errors %}
+                                            <div class="alert alert-danger">
+                                                {% for error in form.members.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.is_active.label_tag }}
+                                        {{ form.is_active }}
+                                        {% if form.is_active.errors %}
+                                            <div class="alert alert-danger">
+                                                {% for error in form.is_active.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <div class="buttons">
+                                            <button type="submit" name="create_group" class="btn button-effect btn-primary signpbtn">Create
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

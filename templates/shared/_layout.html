@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% include 'shared/header_references.html' %}
+    {% block header_references %}{% endblock %}
+</head>
+<body class="sidebar-active">
+    {% block content %}{% endblock %}
+    {% block footer_references %}{% endblock %}
+</body>
+</html>

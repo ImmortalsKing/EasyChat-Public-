@@ -1,0 +1,166 @@
+{% load render_partial %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contact Us Details</title>
+    {% include 'shared/header_references.html' %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+        .pagination .active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="login-page1">
+    <div class="container-fluid p-0"></div>
+    <div class="row">
+        <div class="col-12">
+            <div class="login-contain-main">
+                <div class="left-page">
+                    {% render_partial 'contact_module.views.ContactUsListComponent' %}
+                    <div class="right-page">
+                        <div class="right-login animat-rate">
+                            <div class="bg_circle">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="cross"></div>
+                            <div class="cross1"></div>
+                            <div class="cross2"></div>
+                            <div class="dot"></div>
+                            <div class="dot1"></div>
+                            {#                            <div class="maincircle"></div>#}
+                            <div class="top-circle"></div>
+                            <div class="center-circle"></div>
+                            <div class="bottom-circle"></div>
+                            <div class="bottom-circle1"></div>
+                            <div class="right-circle"></div>
+                            <div class="right-circle1"></div>
+                            <div style="margin-top: 3rem">
+                                <form action="{% url 'contact_details_page' contact_id=feedback.id %}" method="post"
+                                      class="form2">
+                                    {% csrf_token %}
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            {{ form.full_name.label_tag }}
+                                            <div readonly="readonly">{{ form.full_name }}</div>
+                                            {% if form.full_name.errors %}
+                                                <div class="alert alert-danger">
+                                                    {% for error in form.full_name.errors %}
+                                                        {{ error }}
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-6">
+                                            {{ form.email.label_tag }}
+                                            {{ form.email }}
+                                            {% if form.email.errors %}
+                                                <div class="alert alert-danger">
+                                                    {% for error in form.email.errors %}
+                                                        {{ error }}
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.subject.label_tag }}
+                                        {{ form.subject }}
+                                        {% if form.subject.errors %}
+                                            <div class="alert alert-danger">
+                                                {% for error in form.subject.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form.message.label_tag }}
+                                        {{ form.message }}
+                                        {% if form.message.errors %}
+                                            <div class="alert alert-danger">
+                                                {% for error in form.message.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    {% if feedback.image %}
+                                    	<div class="form-group">
+                                        images : <a href="{{ feedback.image.url }}"><img style="width: 10%;height: auto;" src="{{ feedback.image.url }}" alt=""></a>
+                                    </div>
+                                    {% endif %}
+                                    <div class="form-group">
+                                        {{ form.response.label_tag }}
+                                        {{ form.response }}
+                                        {% if form.response.errors %}
+                                            <div class="alert alert-danger">
+                                                {% for error in form.response.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <div class="buttons">
+                                            <button type="submit" class="btn button-effect btn-primary signpbtn">Send
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

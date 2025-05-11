@@ -1,0 +1,86 @@
+body {
+    width: 650px;
+    font-family: work-Sans, sans-serif;
+    background-color: #f6f7fb;
+    display: block;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+span {
+    font-size: 14px;
+}
+
+p {
+    font-size: 13px;
+    line-height: 1.7;
+    letter-spacing: 0.7px;
+    margin-top: 0;
+}
+
+.text-center {
+    text-align: center
+}
+
+h6 {
+    font-size: 16px;
+    margin: 0 0 18px 0;
+}
+
+.template-sosial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.template-sosial li {
+    background-color: #eff1f2;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.template-sosial li:last-child {
+    margin-right: 0;
+}
+
+.template-sosial li:hover {
+    background-color: #1c9dea;
+}
+
+.template-sosial li:hover a {
+    color: white;
+}
+
+.template-sosial li a i {
+    font-size: 14px;
+}
+
+ul.chat-icon {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+}
+
+ul.chat-icon li {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+ul.chat-icon li:last-child {
+    margin-right: 0;
+}

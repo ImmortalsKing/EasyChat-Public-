@@ -1,0 +1,12 @@
+<div class="card-body">
+    <form action="{% url 'about_me' %}" method="post">
+        {% csrf_token %}
+        {{ form.about_user.label }}
+        {{ form.about_user }}
+        <br>
+        <input type="hidden" name="next" value="{{ next }}">
+        <div class="text-right">
+            <button type="submit" class="btn btn-outline-primary btn-sm">confirm</button>
+        </div>
+        </form>
+</div>

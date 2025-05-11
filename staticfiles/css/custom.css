@@ -1,0 +1,176 @@
+.badge svg {
+    margin-right: 4px;
+}
+
+.datepicker {
+    z-index: 10000 !important;
+}
+
+.scroll-to-bottom-btn {
+    position: fixed;
+    bottom: 50px;
+    right: 21px;
+    background-color: #32cc27;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.scroll-to-bottom-btn:hover {
+    background-color: #24ae1a;
+}
+
+#upload-button {
+    position: absolute; /* قرارگیری دکمه روی تصویر */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* وسط‌چین کردن دکمه */
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.7); /* پس‌زمینه سفید با شفافیت */
+    border-radius: 50%; /* گرد کردن دکمه */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0; /* مخفی کردن دکمه به طور پیش‌فرض */
+    transition: opacity 0.3s ease; /* انیمیشن برای ظاهر شدن */
+}
+
+#upload-button:hover {
+    opacity: 1; /* نمایش دکمه هنگام hover */
+}
+
+.plus-icon {
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.5); /* رنگ کمرنگ برای علامت + */
+    font-weight: bold;
+}
+
+.close-profile {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.close-profile:hover {
+    background-color: #dc3545; /* رنگ پس‌زمینه هنگام هاور */
+    color: white;
+}
+
+.call-log-main {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+
+.call-log-main .coll-log-group:last-child {
+    margin-bottom: 0;
+}
+
+.pagination {
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+    padding: 10px 0;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.gallery-image {
+    height: 150px;
+    width: auto;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-form {
+    display: none;
+    margin-top: 5px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-form label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.gallery-form input[type="file"],
+.gallery-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.gallery-form button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.gallery-form button:hover {
+    background: #0056b3;
+}
+
+.toggle-btn {
+    cursor: pointer;
+    color: #007bff;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.toggle-btn, .gallery-form {
+    position: sticky;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}

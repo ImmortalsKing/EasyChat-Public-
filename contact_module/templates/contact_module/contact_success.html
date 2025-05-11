@@ -1,0 +1,63 @@
+{% extends 'shared/_layout.html' %}
+{% load static %}
+
+{% block title %}
+    Contact Success Page
+{% endblock %}
+
+{% block content %}
+    <div class="login-page2 animat-rate">
+        <div class="login-content-main">
+            <div class="login-content">
+                <div class="login-content-header"><img style="width: 250px; height: auto"
+                                                       src="{% static 'images/logo/new_logo.png' %}" alt="sign-logo"></div>
+                <img style="width:150px;margin: 0 auto;display: block;" src="{% static 'images/logo/success.png' %}" alt="">
+                <br>
+                <h4>Your comment has been sent successfully.</h4>
+                <br>
+                <div class="form2">
+                    <div class="form-group mb-0">
+                        <div class="buttons">
+                            <a href="{% url 'blank_chat_page' %}" class="btn button-effect btn-primary signpbtn">Back to messenger</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="animat-block">
+            <div class="bg_circle">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="cross"></div>
+            <div class="cross1"></div>
+            <div class="cross2"></div>
+            <div class="dot"></div>
+            <div class="dot1"></div>
+            <div class="top-circle"></div>
+            <div class="center-circle"></div>
+            <div class="bottom-circle1"></div>
+            <div class="right-circle"></div>
+            <div class="right-circle1"></div>
+            <div class="quarterCircle"></div>
+            <img class="cloud-logo" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img class="cloud-logo1"
+                                                                                                  src="{% static 'images/login_signup/2.png' %}"
+                                                                                                  alt="login logo"><img
+                class="cloud-logo2" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img class="cloud-logo3"
+                                                                                                  src="{% static 'images/login_signup/2.png' %}"
+                                                                                                  alt="login logo"><img
+                class="cloud-logo4" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img class="cloud-logo5"
+                                                                                                  src="{% static 'images/login_signup/2.png' %}"
+                                                                                                  alt="login logo">
+        </div>
+    </div>
+{% endblock %}

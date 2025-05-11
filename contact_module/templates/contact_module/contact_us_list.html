@@ -1,0 +1,104 @@
+{% load render_partial %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contact Us List</title>
+    {% include 'shared/header_references.html' %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+        .pagination .active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="login-page1">
+    <div class="container-fluid p-0"></div>
+    <div class="row">
+        <div class="col-12">
+            <div class="login-contain-main">
+                <div class="left-page">
+                    {% render_partial 'contact_module.views.ContactUsListComponent' %}
+                    <div class="right-page">
+                        <div class="right-login animat-rate">
+                            <div class="bg_circle">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="cross"></div>
+                            <div class="cross1"></div>
+                            <div class="cross2"></div>
+                            <div class="dot"></div>
+                            <div class="dot1"></div>
+                            <div class="maincircle"></div>
+                            <div class="top-circle"></div>
+                            <div class="center-circle"></div>
+                            <div class="bottom-circle"></div>
+                            <div class="bottom-circle1"></div>
+                            <div class="right-circle"></div>
+                            <div class="right-circle1"></div>
+                            <img class="heart-logo" src="{% static 'images/login_signup/5.png' %}" alt="login logo"/><img
+                                class="has-logo" src="{% static 'images/login_signup/4.png' %}" alt="login logo"/><img
+                                class="login-img" src="{% static 'images/gallery/feedback.png' %}" alt="login logo"/><img
+                                class="boy-logo" src="{% static 'images/login_signup/6.png' %}" alt="login boy logo"/><img
+                                class="girl-logo" src="{% static 'images/login_signup/7.png' %}" alt="girllogo"/><img
+                                class="cloud-logo" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="cloud-logo1" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="cloud-logo2" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="cloud-logo3" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="cloud-logo4" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="has-logo1" src="{% static 'images/login_signup/4.png' %}" alt="login logo"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

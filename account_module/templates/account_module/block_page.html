@@ -1,0 +1,51 @@
+{% extends 'shared/_layout.html' %}
+{% load static %}
+
+{% block title %}
+	Blocked Page
+{% endblock %}
+
+{% block content %}
+    <div class="inner-page">
+      <section class="breadcrumb-main">
+        <div class="custom-container">
+          <h2>Blocked Page</h2>
+          <ul>
+            <li><p style="color:white;">home</p></li>
+            <li><p style="color:white;">Blocked</p></li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <section class="error-main">
+      <ul class="page-decore">
+        <li class="top"><img class="img-fluid inner2" src="{% static 'images/landing/footer/2.png' %}" alt="footer-back-img"></li>
+        <li class="bottom"><img class="img-fluid inner2" src="{% static 'images/landing/footer/2.png' %}" alt="footer-back-img"></li>
+      </ul>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="error-contain">
+              <h1 style="color: red;">Not Allowed</h1>
+              <h2>You have been blocked</h2>
+              <h4>You have been blocked by admin for good reasons. <br>If You need more information about that, you can contact us.
+                  <br><br><a class="btn btn-danger" href="{% url 'contact_us_page' %}">Contact Us</a>
+              <div class="animated-bg"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="container copyright-footer">
+        <div class="row copyright">
+          <div class="col-md-6 col-sm-12">
+            <p>© 2024-2025 Easychat. All Rights Reserved</p>
+          </div>
+          <div class="col-md-6 col-sm-12 links_horizontal">
+            <p class="text-right">Powered By Immortals</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+{% endblock %}

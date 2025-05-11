@@ -1,0 +1,94 @@
+{% extends 'shared/_layout.html' %}
+{% load static %}
+
+{% block title %}
+    Generate Code Page
+{% endblock %}
+
+{% block content %}
+    <div class="login-page2 animat-rate">
+        <div class="login-content-main">
+            <div class="login-content">
+                <div class="login-content-header"><img style="width: 250px;height: auto"
+                                                       src="{% static 'images/logo/new_logo.png' %}" alt="sign-logo">
+                </div>
+                <h3>Sign Up Code Generator</h3>
+                <h4>Please click one of below buttons, for generate a new sign up code!</h4>
+                <form action="{% url 'generate_code_page' %}" method="post" class="form2">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.code.label_tag }}
+                        {{ form.code }}
+                    </div>
+                    <div class="form-group mb-0">
+                        <div class="buttons">
+                            <button type="submit" name="submit_1" class="btn button-effect btn-primary signpbtn">Create
+                                Your Code
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <h4>or</h4>
+                <form action="{% url 'generate_code_page' %}" method="post" class="form2">
+                    {% csrf_token %}
+                    <div class="form-group mb-0">
+                        <div class="buttons">
+                            <button type="submit" name="submit_2" class="btn button-effect btn-primary signpbtn">
+                                Generate Random Code
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                {% if code %}
+                    <div>
+                        <h4>Generated/Created Code:</h4>
+                        <h4><input type="text" id="inviteCode" value="{{ code }}"
+                                   readonly onclick="this.select();"></h4>
+                    </div>
+                {% endif %}
+                <br>
+                <br>
+                <div class="text-center">
+                    <div style="margin: 0 auto;" class="badge badge-danger xl rounded font_label"><a style="color:white;" href="{% url 'main_page' %}">Back to main page</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="animat-block">
+            <div class="bg_circle">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="cross"></div>
+            <div class="cross1"></div>
+            <div class="cross2"></div>
+            <div class="dot"></div>
+            <div class="dot1"></div>
+            <div class="top-circle"></div>
+            <div class="center-circle"></div>
+            <div class="bottom-circle1"></div>
+            <div class="right-circle"></div>
+            <div class="right-circle1"></div>
+            <div class="quarterCircle"></div>
+            <img class="cloud-logo" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img class="cloud-logo1"
+                                                                                                 src="{% static 'images/login_signup/2.png' %}"
+                                                                                                 alt="login logo"><img
+                class="cloud-logo2" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img class="cloud-logo3"
+                                                                                                 src="{% static 'images/login_signup/2.png' %}"
+                                                                                                 alt="login logo"><img
+                class="cloud-logo4" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img class="cloud-logo5"
+                                                                                                 src="{% static 'images/login_signup/2.png' %}"
+                                                                                                 alt="login logo">
+        </div>
+    </div>
+{% endblock %}

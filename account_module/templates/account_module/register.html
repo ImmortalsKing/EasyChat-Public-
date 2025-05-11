@@ -1,0 +1,144 @@
+{% extends 'shared/_layout.html' %}
+{% load static %}
+
+{% block title %}
+    Register Page
+{% endblock %}
+
+{% block content %}
+    <div class="login-page2 animat-rate">
+        <div class="login-content-main">
+            <div class="login-content2">
+                <div class="theme-tab">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" id="login-tab" data-toggle="tab"
+                                                href="{% url 'login_page' %}" role="tab" aria-selected="false">login</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" id="signup-tab" data-toggle="tab"
+                                                href="{% url 'register_page' %}"
+                                                role="tab" aria-selected="true">Signup</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="login-content">
+                <div class="login-content-header"><img style="width: 250px; height: auto"
+                                                       src="{% static 'images/logo/new_logo.png' %}" alt="sign-logo">
+                </div>
+                <h3>Hello Everyone,</h3>
+                <h4>Wellcome to EasyChat please signup to your account.</h4>
+                <form action="{% url 'register_page' %}" method="post" class="form2">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.code.label_tag }}
+                        {{ form.code }}
+                        {% if form.code.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.code.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.email.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.display_name.label_tag }}
+                        {{ form.display_name }}
+                        {% if form.display_name.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.display_name.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                        {% if form.password.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.password.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password_confirm.label_tag }}
+                        {{ form.password_confirm }}
+                        {% if form.password_confirm.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.password_confirm.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <br>
+                    <div class="form-group d-flex justify-content-center align-items-center">
+                        {{ form.captcha }}
+                        {% if form.captcha.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.captcha.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group mb-0">
+                        <div class="buttons">
+                            <button type="submit" class="btn button-effect btn-primary signpbtn">SignUp</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="animat-block">
+            <div class="bg_circle">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="cross"></div>
+            <div class="cross1"></div>
+            <div class="cross2"></div>
+            <div class="dot"></div>
+            <div class="dot1"></div>
+            <div class="top-circle"></div>
+            <div class="center-circle"></div>
+            <div class="bottom-circle1"></div>
+            <div class="right-circle"></div>
+            <div class="right-circle1"></div>
+            <div class="quarterCircle"></div>
+            <img class="cloud-logo" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img
+                class="cloud-logo1"
+                src="{% static 'images/login_signup/2.png' %}"
+                alt="login logo"><img
+                class="cloud-logo2" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img
+                class="cloud-logo3"
+                src="{% static 'images/login_signup/2.png' %}"
+                alt="login logo"><img
+                class="cloud-logo4" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img
+                class="cloud-logo5"
+                src="{% static 'images/login_signup/2.png' %}"
+                alt="login logo">
+        </div>
+    </div>
+{% endblock %}

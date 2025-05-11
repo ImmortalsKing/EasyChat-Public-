@@ -1,0 +1,47 @@
+{% load static %}
+<div class="login-content">
+    <div class="login-content-header"><img style="width: 50%;height: auto;"
+                                           src="{% static 'images/logo/new_logo.png' %}" alt="images">
+    </div>
+    <h3>Hello dear admin</h3>
+    <h4>Here is the list of all feedback.</h4>
+    <div class="form1">
+        <table>
+            <thead>
+            <tr>
+                <th>Subject / Username</th>
+                <th>was responded by admin</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td><a href="{% url 'contact_details_page' contact_id=contact.id %}">{{ contact }}</a></td>
+                    {% if contact.is_read_by_admin %}
+                        <td><a class="badge badge-outline-success font_label">Was Responded</a></td>
+                    {% else %}
+                        <td><a class="badge badge-outline-danger font_label">Was not Responded</a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">«</a>
+            {% endif %}
+            {% for pageNumber in paginator.page_range %}
+                <a href="?page={{ pageNumber }}"
+                   class="{% if page_obj.number == pageNumber %}active{% endif %}">{{ pageNumber }}</a>
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">»</a>
+            {% endif %}
+        </div>
+        <br>
+        <br>
+        <div class="badge badge-danger xl rounded font_label"><a style="color:white;" href="{% url 'main_page' %}">Back to main page</a></div>
+    </div>
+</div>

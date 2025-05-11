@@ -1,0 +1,50 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}
+	404 Page
+{% endblock %}
+
+{% block content %}
+    <div class="inner-page">
+      <section class="breadcrumb-main">
+        <div class="custom-container">
+          <h2>404</h2>
+          <ul>
+            <li><p style="color:white;">home</p></li>
+            <li><p style="color:white;">404</p></li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <section class="error-main">
+      <ul class="page-decore">
+        <li class="top"><img class="img-fluid inner2" src="/static/images/landing/footer/2.png" alt="footer-back-img"></li>
+        <li class="bottom"><img class="img-fluid inner2" src="/static/images/landing/footer/2.png" alt="footer-back-img"></li>
+      </ul>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="error-contain">
+              <h1>404</h1>
+              <h2>Page Not Found</h2>
+                <h4>The Page You Are Attempting To Reach Is Not Available. <br>This May Be Because The Page Does Not Exist Or Has Been Moved.</h4>
+                  <br><br><a class="btn btn-primary" href="{% url 'main_page' %}">back to home</a>
+              <div class="animated-bg"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="container copyright-footer">
+        <div class="row copyright">
+          <div class="col-md-6 col-sm-12">
+            <p>© 2024-2025 Easychat. All Rights Reserved</p>
+          </div>
+          <div class="col-md-6 col-sm-12 links_horizontal">
+            <p class="text-right">Powered By Immortals</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+{% endblock %}

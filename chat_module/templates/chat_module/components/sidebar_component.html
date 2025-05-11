@@ -1,0 +1,729 @@
+{% load static %}
+{% load thumbnail %}
+{% load render_partial %}
+{% load poll_extras %}
+
+
+<nav class="main-nav custom-scroll on">
+    <div class="logo-warpper"><a href="{% url 'blank_chat_page' %}"><img
+            src="{% static 'images/logo/easychat-logo2-removebg.png' %}" alt="logo"/></a></div>
+    <div class="sidebar-main">
+        <ul class="sidebar-top">
+            <li>
+                <div class="user-popup status one" id="my-profile"
+                     data-id="{{ me.id }}"
+                     data-avatar="{{ me.avatar.url }}"
+                     data-display-name="{{ me.display_name }}"
+                     data-about-me="{{ me.about_user }}">
+                    <div>
+                        {% if me.avatar.url %}
+                            <img class="bg-img" src="{{ me.avatar.url }}" alt="Avatar"/>
+                        {% else %}
+                            <img class="bg-img" src="{% static 'images/avtar/face.png' %}" alt="Avatar"/>
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+            <li><a class="icon-btn btn-light button-effect" href="contact-list"
+                   data-tippy-content="Contact List"> <i class="fa fa-users"> </i></a></li>
+            <li><a class="icon-btn btn-light button-effect" href="gallery" data-tippy-content="Gallery">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-images"
+                     viewBox="0 0 16 16">
+                    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3"/>
+                    <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z"/>
+                </svg>
+            </a></li>
+            {% if request.user.is_superuser %}
+                <li><a class="icon-btn btn-light button-effect" href="document"
+                       data-tippy-content="Admin">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                    </svg>
+                </a></li>
+            {% endif %}
+            <li><a class="icon-btn btn-light button-effect" href="settings" data-tippy-content="Setting"> <i
+                    class="fa fa-cog"></i></a></li>
+        </ul>
+        <ul class="sidebar-bottom">
+            <li><a class="icon-btn btn-light button-effect mode" href="#" data-tippy-content="Theme Mode"><i
+                    class="fa fa-moon-o"></i></a></li>
+            <li><a class="icon-btn btn-light" href="{% url 'logout_page' %}" data-tippy-content=" SignOut"> <i
+                    class="fa fa-power-off">
+            </i></a></li>
+        </ul>
+    </div>
+</nav>
+<aside class="chitchat-left-sidebar left-disp">
+    {% url 'chat_page' id=current_contact_id as chat_url %}
+    <div class="recent-default dynemic-sidebar active">
+        <div class="chat custom-scroll">
+            <ul class="chat-cont-setting">
+                <li><a href="#" data-toggle="modal" data-target="#msgchatModal"><span>new chat</span>
+                    <div class="icon-btn btn-outline-primary button-effect btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-message-square">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                    </div>
+                </a></li>
+                <li><a href="#" data-toggle="modal" data-target="#msgcallModal"><span>new call</span>
+                    <div class="icon-btn btn-outline-success button-effect btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-phone">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                </a></li>
+                <li><a href="#" data-toggle="modal" data-target="#exampleModalCenter"><span>new Contact</span>
+                    <div class="icon-btn btn-outline-danger button-effect btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-users">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                </a></li>
+            </ul>
+            <div class="theme-title">
+                <div class="media">
+                    <div>
+                        <h2>Chat</h2>
+                        <h4>Recent Messages</h4>
+                    </div>
+                    <div class="media-body"><a id="mobile-back"
+                            class="icon-btn btn-outline-light button-effect pull-right mobile-back"
+                            href="#"><i class="ti-angle-right"></i></a><a
+                            class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#"><i
+                            class="ti-layout-grid2"></i></a></div>
+                </div>
+
+                {% if messages %}
+                    <br>
+                    <br>
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="theme-tab tab-sm chat-tabs">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+{#                    <li class="nav-item" data-to="chat-content"><a#}
+{#                            class="nav-link button-effect {% if '/chat/' in request.path or '/gallery/' in request.path or '/group-chat/' in request.path %}active{% endif %}"#}
+{#                            id="chat-tab"#}
+{#                            data-toggle="tab" href="#chat" role="tab"#}
+{#                            aria-controls="chat" aria-selected="true">#}
+{#                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"#}
+{#                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"#}
+{#                             stroke-linejoin="round" class="feather feather-message-square">#}
+{#                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>#}
+{#                        </svg>#}
+{#                        Chat</a></li>#}
+{#                                        <li class="nav-item" data-to="call-content"><a#}
+{#                                                class="nav-link button-effect {% if '/gallery/' in request.path %}active{% endif %}"#}
+{#                                                id="call-tab"#}
+{#                                                data-toggle="tab" href="#call" role="tab"#}
+{#                                                aria-controls="call" aria-selected="true">#}
+{#                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"#}
+{#                                                 class="bi bi-image-fill" viewBox="0 0 16 16">#}
+{#                                                <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>#}
+{#                                            </svg>&nbsp;Gallery</a></li>#}
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade {% if '/chat/' in request.path or '/gallery/' in request.path or '/group-chat/' in request.path %}show{% endif %} {% if '/chat/' in request.path or '/gallery/' in request.path or '/group-chat/' in request.path %}active{% endif %}"
+                         id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                        <div class="theme-tab">
+                            <ul class="nav nav-tabs" id="myTab1" role="tablist">
+                                <li class="nav-item"><a
+                                        class="nav-link button-effect {% if '/chat/' in request.path or '/gallery/' in request.path %}active{% endif %}"
+                                        id="direct-tab"
+                                        data-toggle="tab" href="#direct" role="tab"
+                                        aria-controls="direct" aria-selected="true"
+                                        data-to="{% if request.path|match_chat_url %}chating{% elif '/chat/' or '/group-chat/' in request.path %}blank{% endif %}">Direct</a>
+                                </li>
+                                <li class="nav-item"><a
+                                        class="nav-link button-effect {% if '/group-chat/' in request.path %}active{% endif %}"
+                                        id="group-tab"
+                                        data-toggle="tab" href="#group" role="tab" aria-controls="group"
+                                        aria-selected="false"
+                                        data-to="{% if '/group-chat/' in request.path %}group_chat{% elif '/chat/' in request.path or request.path|match_chat_url %}blank{% endif %}">Group</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent1">
+                                <div class="tab-pane fade {% if '/chat/' in request.path or '/gallery/' in request.path or request.path|match_chat_url %}show{% endif %} {% if '/chat/' in request.path or '/gallery/' in request.path or request.path|match_chat_url %}active{% endif %}"
+                                     id="direct" role="tabpanel"
+                                     aria-labelledby="direct-tab">
+                                    <ul class="chat-main">
+                                        {% for conversation in last_conversations %}
+                                            <li class="{% if conversation.contact.id == request.resolver_match.kwargs.id %}active{% endif %}"
+                                                data-to="{{ conversation.contact.id }}">
+                                                <div class="chat-box">
+                                                    <a href="{% url 'chat_page' id=conversation.contact.id %}">
+                                                        <div class="profile bg-size"
+                                                             style="background-image: url('{{ conversation.contact.avatar.url }}'); background-size: cover; background-position: center center; display: block;">
+                                                            <img class="bg-img"
+                                                                 src="{{ conversation.contact.avatar.url }}"
+                                                                 alt="Avatar" style="display: none;">
+                                                        </div>
+                                                        <div class="details">
+                                                            <h5>{{ conversation.contact.display_name }}</h5>
+                                                            <h6>{{ conversation.last_message.last_message_text|default:"No message found!" }}</h6>
+                                                        </div>
+                                                        <div class="date-status">
+                                                            <h6>{{ conversation.last_message.last_date|date:"d/m/Y" }}</h6>
+                                                            <h6 class="font-success status">
+                                                                {% if conversation.last_message.last_message_sender == me.id %}
+                                                                    {% if conversation.last_message.last_seen %}
+                                                                        Seen
+                                                                    {% else %}
+                                                                        Unseen
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    {% if conversation.last_message.unseen_message_count > 0 %}
+                                                                        <div class="badge badge-primary sm">
+                                                                            {{ conversation.last_message.unseen_message_count }}
+                                                                        </div>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                            </h6>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="tab-pane fade {% if '/group-chat/' in request.path %}show{% endif %} {% if '/group-chat/' in request.path %}active{% endif %}"
+                                     id="group" role="tabpanel"
+                                     aria-labelledby="group-tab">
+                                    <ul class="group-main">
+                                        {% for conversation in group_last_conversations %}
+                                            {% if request.user in conversation.group.members.all %}
+                                                <li class="{% if conversation.group.slug == request.resolver_match.kwargs.slug %}active{% endif %}"
+                                                    data-to="{{ conversation.group.slug }}">
+                                                    <div class="group-box">
+                                                        <a href="{% url 'group_chat_page' slug=conversation.group.slug %}">
+                                                            <div class="profile bg-size"
+                                                                 style="background-image: url('{% static "images/avtar/teq.jpg" %}'); background-size: cover; background-position: center center; display: block;">
+                                                                <img class="bg-img"
+                                                                     src="{{ conversation.group.avatar.url }}"
+                                                                     alt="Avatar" style="display: none;">
+                                                            </div>
+                                                            <div class="details">
+                                                                <h5>{{ conversation.group.title }}</h5>
+                                                                <h6 id="side_sender"
+                                                                    style="display: inline-block;">{{ conversation.last_message.last_message_sender.display_name }}:
+                                                                    &nbsp;</h6><h6 id="side_group_msg"
+                                                                                   style="display: inline-block;">{{ conversation.last_message.last_message_text|default:"No message found!" }}</h6>
+                                                            </div>
+                                                            <div class="date-status">
+                                                                <ul class="grop-icon">
+                                                                    {% for member in conversation.group.selected_members %}
+                                                                        <li><a class="group-tp profile-link" href="#"
+                                                                               data-id="{{ member.id }}"
+                                                                               data-avatar="{{ member.avatar.url }}"
+                                                                               data-display-name="{{ member.display_name }}"
+                                                                               data-about-me="{{ member.about_user }}">
+                                                                            <img
+                                                                                    src="{{ member.avatar.url }}"
+                                                                                    alt="group-icon-img"></a></li>
+                                                                    {% endfor %}
+                                                                    {% if conversation.group.members.count > 2 %}
+                                                                        <li style="font-size: 12px;color: #6087a3;font-weight: 700;border: none;border-radius: 0;margin-left: 5px;">
+                                                                            + {{ conversation.group.members.count|add:"-2" }}</li>
+                                                                    {% else %}
+                                                                        <li style="border: none; background: none;">
+                                                                            &nbsp;
+                                                                        </li>
+                                                                    {% endif %}
+                                                                </ul>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{#                    <div class="tab-pane fade {% if '/gallery/' in request.path %}show{% endif %} {% if '/gallery/' in request.path %}active{% endif %}"#}
+{#                         id="call" role="tabpanel" aria-labelledby="call-tab">#}
+{#                        <div class="theme-tab tab-icon">#}
+{#                            <div class="tab-content" id="contactTabContent">#}
+{#                                <div class="tab-pane fade show active" id="con1" role="tabpanel"#}
+{#                                     aria-labelledby="con1-tab">#}
+{#                                    <ul class="call-log-main">#}
+{#                                        {% for room in gallery_rooms %}#}
+{#                                            <li>#}
+{#                                                <a href="{% url 'gallery_page' slug=room.slug %}">#}
+{#                                                    <div class="call-box"#}
+{#                                                         style="display: flex; align-items: center; gap: 10px;">#}
+{#                                                        <div class="profile bg-size"#}
+{#                                                             style="background-image: url('{{ room.featured_image.url }}'); background-size: cover; background-position: center center; display: block;">#}
+{#                                                            <img class="bg-img" src="{{ room.featured_image.url }}"#}
+{#                                                                 alt="Avatar"#}
+{#                                                                 style="display: none;"></div>#}
+{#                                                        <div class="details">#}
+{#                                                            <h5>{{ room.title }}</h5>#}
+{#                                                        </div>#}
+{#                                                        <div class="badge badge-primary fonts font_label">#}
+{#                                                            by: {{ room.by_who.display_name }}</div>#}
+{#                                                    </div>#}
+{#                                                </a>#}
+{#                                            </li>#}
+{#                                        {% endfor %}#}
+{#                                    </ul>#}
+{##}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contact-list-tab dynemic-sidebar custom-scroll" id="contact-list">
+        <div class="theme-title">
+            <div class="media">
+                <div>
+                    <h2>Contact</h2>
+                    <h4>Start talking now</h4>
+                </div>
+                <div class="media-body text-right">
+                    <a class="icon-btn btn-sm close-panel btn-outline-primary" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <ul class="chat-main">
+            {% for contact in contacts %}
+                <li>
+                    <div class="chat-box chat-tabs">
+                        <a href="#" class="profile-link" data-id="{{ contact.id }}"
+                           data-avatar="{{ contact.avatar.url }}"
+                           data-display-name="{{ contact.display_name }}"
+                           data-about-me="{{ contact.about_user }}">
+                            <div class="profile bg-size"
+                                 style="background-image: url('{{ contact.avatar.url }}'); background-size: cover; background-position: center center; display: block;">
+                                <img class="bg-img" src="{{ contact.avatar.url }}" alt="Avatar"
+                                     style="display: none;">
+                            </div>
+                        </a>
+                        <div class="details">
+                            <h5>{{ contact.display_name }}</h5>
+                            {% if contact.is_superuser %}
+                                <h6>Admin</h6>
+                            {% else %}
+                                <h6>User</h6>
+                            {% endif %}
+                        </div>
+                        <div style="padding-top:0.5rem" class="date-status">
+                            <a href="{% url 'chat_page' id=contact.id %}"
+                               style="background-color: #4CAF50; /* سبز */color: white;padding: 10px 20px;border: none;border-radius: 5px;font-size: 14px;">Message</a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="fevorite-tab dynemic-sidebar" id="gallery">
+        <div class="theme-title">
+            <div class="media">
+                <div>
+                    <h2>Gallery</h2>
+                    <h4>View Most Favorite Images</h4>
+                </div>
+                <div class="media-body text-right">
+                    <a class="icon-btn btn-outline-light btn-sm close-panel" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <ul style="margin-top: 2rem;" class="chat-main">
+            {% for room in gallery_rooms %}
+                                            <li>
+                                                <a href="{% url 'gallery_page' slug=room.slug %}">
+                                                    <div class="call-box"
+                                                         >
+                                                        <div class="media" style="display: flex; align-items: center; gap: 10px;">
+                                                        <div class="profile bg-size"
+                                                             style="background-image: url('{{ room.featured_image.url }}'); background-size: cover; background-repeat: no-repeat; background-position: center center; width: 80px; height: 80px;">
+                                                            <img class="bg-img" src="{{ room.featured_image.url }}"
+                                                                 alt="Avatar"
+                                                                 style="opacity: 0; width: 100%; height: 100%;"></div>
+                                                        <div class="details">
+                                                            <h5>{{ room.title }}</h5>
+                                                        </div>
+                                                        <div style="margin-left: auto;" class="badge badge-primary fonts font_label">
+                                                            by: {{ room.by_who.display_name }}</div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+
+                                        {% endfor %}
+        </ul>
+    </div>
+    {% if request.user.is_superuser %}
+        <div class="document-tab dynemic-sidebar" id="document">
+            <div class="theme-title">
+                <div class="media">
+                    <div>
+                        <h2>Admin</h2>
+                        <h4>Admin Settings</h4>
+                    </div>
+                    <div class="media-body text-right">
+                        <a class="icon-btn btn-outline-light btn-sm close-panel" href="#"><i
+                                data-feather="x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <ul class="chat-main">
+                <li>
+                    <div class="chat-box">
+                        <div class="media">
+                            <div class="profile"><a
+                                    class="icon-btn btn-outline-danger btn-xl pull-right rouded15"
+                                    href="/admin/">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor"
+                                     class="bi bi-person-fill-gear" viewBox="0 0 16 16">
+                                    <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+                                </svg>
+                            </a></div>
+                            <div class="details">
+                                <a href="/admin/">
+                                    <h5>Admin Panel</h5>
+                                    <h6>Access to all admin settings</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="chat-box">
+                        <div class="media">
+                            <div class="profile"><a
+                                    class="icon-btn btn-outline-success btn-xl pull-right rouded15"
+                                    href="{% url 'generate_code_page' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor"
+                                     class="bi bi-key-fill" viewBox="0 0 16 16">
+                                    <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                </svg>
+                            </a></div>
+                            <div class="details">
+                                <a href="{% url 'generate_code_page' %}">
+                                    <h5>Generate Codes</h5>
+                                    <h6>Generate Codes for registration</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="chat-box">
+                        <div class="media">
+                            <div class="profile"><a
+                                    class="icon-btn btn-outline-primary btn-xl pull-right rouded15"
+                                    href="{% url 'contact_list_page' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     fill="currentColor"
+                                     class="bi bi-chat-left-quote-fill" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793zm7.194 2.766a1.7 1.7 0 0 0-.227-.272 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 5.734 4C4.776 4 4 4.746 4 5.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.5 2.5 0 0 0-.227-.4zM11 7.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.5 2.5 0 0 0-.228-.4 1.7 1.7 0 0 0-.227-.273 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 10.07 4c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z"/>
+                                </svg>
+                            </a></div>
+                            <div class="details">
+                                <a href="{% url 'contact_list_page' %}">
+                                    <h5>Feedback Responds</h5>
+                                    <h6>Access to all feedbacks</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="chat-box">
+                        <div class="media">
+                            <div class="profile"><a class="icon-btn btn-outline-warning btn-xl pull-right rouded15"
+                                                    href="{% url 'users_list_page' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-person-standing" viewBox="0 0 16 16">
+                                    <path d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M6 6.75v8.5a.75.75 0 0 0 1.5 0V10.5a.5.5 0 0 1 1 0v4.75a.75.75 0 0 0 1.5 0v-8.5a.25.25 0 1 1 .5 0v2.5a.75.75 0 0 0 1.5 0V6.5a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v2.75a.75.75 0 0 0 1.5 0v-2.5a.25.25 0 0 1 .5 0"/>
+                                </svg>
+                            </a></div>
+                            <div class="details">
+                                <h5>Users List</h5>
+                                <h6>Access to users codes and roles</h6>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="chat-box">
+                        <div class="media">
+                            <div class="profile"><a
+                                    class="icon-btn btn-outline-light btn-xl pull-right rouded15"
+                                    href="{% url 'groups_list_page' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                                </svg>
+                            </a></div>
+                            <div class="details">
+                                <a href="{% url 'groups_list_page' %}">
+                                    <h5>Groups Lists</h5>
+                                    <h6>Access to all groups</h6>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+    <div class="settings-tab dynemic-sidebar custom-scroll" id="settings">
+        <div class="theme-title">
+            <div class="media">
+                <div>
+                    <h2>Settings</h2>
+                    <h4>Change your app setting.</h4>
+                </div>
+                <div class="media-body text-right"><a class="icon-btn btn-sm close-panel btn-outline-primary"
+                                                      href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </a></div>
+            </div>
+            <div class="profile-box">
+                <div class="media">
+                    <div id="profile-avatar" class="profile bg-size"
+                         style="background-image: url('{% static "images/contact/2.jpg" %}'); background-size: cover; background-position: center center; display: block;">
+                        <img id="user-avatar" class="bg-img" src="{{ me.avatar.url }}" alt="Avatar"
+                             style="display: none;">
+                        <input type="file" id="change-avatar" accept="image/*" style="display: none;">
+                        <div id="upload-button">
+                            <span class="plus-icon">+</span>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <h5 id="display_name">{{ me.display_name }}</h5>
+                        <div style="display: flex;align-items: center;padding-top: 10px">
+                            <img id="country_logo" style="width: 25px;height: auto"
+                                 src="{{ me.country.logo.url }}" alt=""><h5 id="country_name"
+                                                                            style="padding-left: 10px">{{ me.country.name }}</h5>
+                        </div>
+                    </div>
+                    <div class="details edit">
+                        <form id="profile-form" class="form-radious form-sm">
+                            {% csrf_token %}
+                            <div class="form-group mb-2">
+                                <input class="form-control" type="text" id=user_name name="user_name"
+                                       value="{{ me.display_name }}">
+                            </div>
+                            <div class="form-group mb-0">
+                                <select style="color: #444;" class="form-control" name="country" id="country">
+                                    {% for country in countries %}
+                                        <option style="color: #444;" value="{{ country.name }}"
+                                                {% if country.name == me.country.name %}selected{% endif %}>{{ country.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="media-body"><a class="icon-btn btn-sm pull-right edit-btn btn-outline-primary"
+                                               href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-edit">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </a></div>
+                </div>
+            </div>
+        </div>
+        <div class="setting-block">
+            <div class="block">
+                <div class="media">
+                    <div class="media-body">
+                        <h3>Account</h3>
+                    </div>
+                    <div class="media-right"><a class="icon-btn btn-outline-light btn-sm pull-right previous"
+                                                href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-chevron-left">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </a></div>
+                </div>
+                <div class="theme-according" id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingFour" role="heading" data-toggle="collapse"
+                             data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour"><a>Change
+                            Password<i class="fa fa-angle-down"></i></a></div>
+                        <div class="collapse" id="collapseFour" aria-labelledby="headingFour"
+                             data-parent="#accordion">
+                            {% render_partial 'chat_module.views.ChangePasswordView' %}
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="about_user" role="heading" data-toggle="collapse"
+                             data-target="#collapse_User" aria-expanded="false" aria-controls="collapse_User"><a>About
+                            Me<i class="fa fa-angle-down"></i></a></div>
+                        <div class="collapse" id="collapse_User" aria-labelledby="about_user"
+                             data-parent="#accordion">
+                            {% render_partial 'chat_module.views.AboutUserView' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="media">
+                <div class="media-body">
+                    <h3>Account</h3>
+                    <h4>Update Your Account Details</h4>
+                </div>
+                <div class="media-right"><a class="icon-btn btn-outline-light btn-sm pull-right next" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a></div>
+            </div>
+        </div>
+        <div class="setting-block">
+            <div class="block">
+                <div class="media">
+                    <div class="media-body">
+                        <h3>Chat</h3>
+                    </div>
+                    <div class="media-right"><a class="icon-btn btn-outline-light btn-sm pull-right previous"
+                                                href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-chevron-left">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </a></div>
+                </div>
+                <ul class="help">
+                    <li>
+                        <div style="display: flex;align-items: center;padding-top: 10px">
+                            <h5 style="padding-right: 8px;">Chat wallpaper</h5> <a id="reset-bg"
+                                                                                   class="badge badge-outline-light font_label">Reset</a>
+                        </div>
+                        <ul class="wallpaper">
+                            <li class="bg-size"
+                                style="background-image: url('{% static "images/wallpaper/2.jpg" %}'); background-size: cover; background-position: center center; display: block;">
+                                <img class="bg-img" src="{% static 'images/wallpaper/2.jpg' %}" alt="Avatar"
+                                     style="display: none;"></li>
+                            <li class="bg-size"
+                                style="background-image: url('{% static "images/wallpaper/1.jpg" %}'); background-size: cover; background-position: center center; display: block;">
+                                <img class="bg-img" src="{% static 'images/wallpaper/1.jpg' %}" alt="Avatar"
+                                     style="display: none;"></li>
+                            <li class="bg-size"
+                                style="background-image: url('{% static "images/wallpaper/3.jpg" %}'); background-size: cover; background-position: center center; display: block;">
+                                <img class="bg-img" src="{% static 'images/wallpaper/3.jpg' %}" alt="Avatar"
+                                     style="display: none;"></li>
+                            <li class="bg-size"
+                                style="background-image: url('{% static "images/wallpaper/4.jpg" %}'); background-size: cover; background-position: center center; display: block;">
+                                <img class="bg-img" src="{% static 'images/wallpaper/4.jpg' %}" alt="Avatar"
+                                     style="display: none;"></li>
+                            <li class="bg-size"
+                                style="background-image: url('{% static "images/wallpaper/5.jpg" %}'); background-size: cover; background-position: center center; display: block;">
+                                <img class="bg-img" src="{% static 'images/wallpaper/5.jpg' %}" alt="Avatar"
+                                     style="display: none;"></li>
+                            <li class="bg-size"
+                                style="background-image: url('{% static "images/wallpaper/6.jpg" %}'); background-size: cover; background-position: center center; display: block;">
+                                <img class="bg-img" src="{% static 'images/wallpaper/6.jpg' %}" alt="Avatar"
+                                     style="display: none;"></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="media">
+                <div class="media-body">
+                    <h3>Chat</h3>
+                    <h4>Customize your chat backgrounds</h4>
+                </div>
+                <div class="media-right"><a class="icon-btn btn-outline-light btn-sm pull-right next" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a></div>
+            </div>
+        </div>
+        <div class="setting-block">
+            <div class="block">
+                <div class="media">
+                    <div class="media-body">
+                        <h3>Help</h3>
+                    </div>
+                    <div class="media-right"><a class="icon-btn btn-outline-light btn-sm pull-right previous"
+                                                href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                             stroke-linejoin="round" class="feather feather-chevron-left">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </a></div>
+                </div>
+                <ul class="help">
+                    <li>
+                        <h5><a href="{% url 'contact_us_page' %}"> Contact Us</a></h5>
+                    </li>
+                    <li>
+                        <h5>2024 - 25 By Immortals</h5>
+                    </li>
+                </ul>
+            </div>
+            <div class="media">
+                <div class="media-body">
+                    <h3>Help</h3>
+                    <h4>You are Confusion, Tell me</h4>
+                </div>
+                <div class="media-right"><a class="icon-btn btn-outline-light btn-sm pull-right next" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" class="feather feather-chevron-right">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </a></div>
+            </div>
+        </div>
+    </div>
+</aside>

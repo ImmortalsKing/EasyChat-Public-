@@ -1,0 +1,122 @@
+{% extends 'shared/_layout.html' %}
+{% load static %}
+
+{% block title %}
+    Contact Us Page
+{% endblock %}
+
+{% block content %}
+    <div class="login-page2 animat-rate">
+        <div class="login-content-main">
+            <div class="login-content">
+                <div class="login-content-header"><img style="width: 250px; height: auto"
+                                                       src="{% static 'images/logo/new_logo.png' %}" alt="sign-logo"></div>
+                <h3>Hello Everyone , We are EasyChat</h3>
+                <img style="width:350px;margin: 0 auto;display: block;" src="{% static 'images/logo/contact.jpg' %}" alt="">
+                <br>
+                <h4>You can share your comments, criticism and suggestions with us.</h4>
+                <h4>می توانید نظرات، انتقادات و پیشنهادات خود را با ما در میان بگذارید.</h4>
+                <form action="{% url 'contact_us_page' %}" method="post" class="form2" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            {{ form.full_name.label_tag }}
+                            {{ form.full_name }}
+                            {% if form.full_name.errors %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.full_name.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.email.label_tag }}
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form.subject.label_tag }}
+                        {{ form.subject }}
+                        {% if form.subject.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.subject.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.message.label_tag }}
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.message.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.image.label_tag }}
+                        {{ form.image }}
+                        {% if form.image.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.image.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group mb-0">
+                        <div class="buttons">
+                            <button type="submit" class="btn button-effect btn-primary signpbtn">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="animat-block">
+            <div class="bg_circle">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="cross"></div>
+            <div class="cross1"></div>
+            <div class="cross2"></div>
+            <div class="dot"></div>
+            <div class="dot1"></div>
+            <div class="top-circle"></div>
+            <div class="center-circle"></div>
+            <div class="bottom-circle1"></div>
+            <div class="right-circle"></div>
+            <div class="right-circle1"></div>
+            <div class="quarterCircle"></div>
+            <img class="cloud-logo" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img class="cloud-logo1"
+                                                                                                  src="{% static 'images/login_signup/2.png' %}"
+                                                                                                  alt="login logo"><img
+                class="cloud-logo2" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img class="cloud-logo3"
+                                                                                                  src="{% static 'images/login_signup/2.png' %}"
+                                                                                                  alt="login logo"><img
+                class="cloud-logo4" src="{% static 'images/login_signup/2.png' %}" alt="login logo"><img class="cloud-logo5"
+                                                                                                  src="{% static 'images/login_signup/2.png' %}"
+                                                                                                  alt="login logo">
+        </div>
+    </div>
+{% endblock %}

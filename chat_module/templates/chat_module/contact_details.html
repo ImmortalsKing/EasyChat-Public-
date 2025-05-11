@@ -1,0 +1,70 @@
+{% load static %}
+
+<div class="contact-content tabto">
+                <div class="contact-sub-content"><a class="icon-btn btn-outline-primary button-effect mobile-back mb-3"
+                                                    href=""><i
+                        class="ti-angle-right"></i></a>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="user-profile">
+                                <div class="user-content"><img class="img-fluid bg-icon"
+                                                               src="{% static 'images/contact/2.jpg' %}" alt="user-img">
+                                    <h3>user</h3>
+                                    <ul>
+                                        <li><a href="{% url 'chat_page' id=person.id %}"><i
+                                                class="fa fa-twitch"> </i></a>massage
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="personal-info-group">
+                                <h3>contact info</h3>
+                                <ul class="basic-info">
+                                    <li>
+                                        <h5>Display Name</h5>
+                                        <h5 class="details">{{ user.display_name }}</h5>
+                                    </li>
+                                    <li>
+                                        <h5>gender</h5>
+                                        <h5 class="details">male</h5>
+                                    </li>
+                                    <li>
+                                        <h5>Birthday</h5>
+                                        <h5 class="details">9 april 1994</h5>
+                                    </li>
+                                    <li>
+                                        <h5>Favorite Book</h5>
+                                        <h5 class="details">Perfect Chemistry</h5>
+                                    </li>
+                                    <li>
+                                        <h5>Personality</h5>
+                                        <h5 class="details">Cool</h5>
+                                    </li>
+                                    <li>
+                                        <h5>City</h5>
+                                        <h5 class="details">Moline Acres</h5>
+                                    </li>
+                                    <li>
+                                        <h5>mobile no</h5>
+                                        <h5 class="details">+0 1800 76855</h5>
+                                    </li>
+                                    <li>
+                                        <h5>email</h5>
+                                        <h5 class="details">ChitChat@test.com</h5>
+                                    </li>
+                                    <li>
+                                        <h5>Website</h5>
+                                        <h5 class="details">www.test.com</h5>
+                                    </li>
+                                    <li>
+                                        <h5 class="m-0">Interest</h5>
+                                        <h5 class="details">Photography</h5>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

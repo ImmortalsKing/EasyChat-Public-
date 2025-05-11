@@ -1,0 +1,219 @@
+{% load render_partial %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Users List</title>
+    {% include 'shared/header_references.html' %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .pagination a {
+            margin: 0 5px;
+            padding: 8px 16px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+        .pagination .active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="login-page1">
+    <div class="container-fluid p-0"></div>
+    <div class="row">
+        <div class="col-12">
+            <div class="login-contain-main">
+                <div class="left-page">
+                    <div class="login-content">
+                        <div class="login-content-header"><img style="width: 50%;height: auto;"
+                                                               src="{% static 'images/logo/new_logo.png' %}" alt="images">
+                        </div>
+                        <h3>Hello dear admin</h3>
+                        <h4>Here is the list of all users.</h4>
+                        <div class="form1">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>User Code</th>
+                                    <th>User Name</th>
+                                    <th>User Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in users %}
+                                    {% if user.is_blocked %}
+                                    	<tr style="background-color: #f8b4b4;">
+                                        {% if user.invitationcode %}
+                                        	<td>
+                                            <a>{{ user.invitationcode.code }}</a>
+                                        </td>
+                                            {% else %}
+                                            <td><a>No code</a></td>
+                                        {% endif %} 
+                                        {% if user.display_name %}
+                                            <td><a>{{ user.display_name }}</a></td>
+                                        {% else %}
+                                            <td><a>{{ user.username }}</a>
+                                            </td>
+                                        {% endif %}
+                                        {% if user.is_superuser %}
+                                        	<td>
+                                            <div class="badge badge-outline-danger fonts font_label">Admin</div>
+                                        </td>
+                                            {% else %}
+                                            <td>
+                                            <div class="badge badge-outline-primary fonts font_label">User</div>
+                                            </td>
+                                        {% endif %}
+                                        <td>
+                                            	<div class="badge badge-outline-light fonts font_label">
+                                                <form action="" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                            <button style="background: none;color: inherit;border: none;font: inherit;cursor: pointer;"
+                                                                    type="submit" id="unblock_user" name="unblock_user">
+                                                                Unblock
+                                                            </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                    </tr>
+                                        {% else %}
+                                        <tr>
+                                        {% if user.invitationcode %}
+                                        	<td>
+                                            <a>{{ user.invitationcode.code }}</a>
+                                        </td>
+                                            {% else %}
+                                            <td><a>No code</a></td>
+                                        {% endif %} 
+                                        {% if user.display_name %}
+                                            <td><a>{{ user.display_name }}</a></td>
+                                        {% else %}
+                                            <td><a>{{ user.username }}</a>
+                                            </td>
+                                        {% endif %}
+                                        {% if user.is_superuser %}
+                                        	<td>
+                                            <div class="badge badge-outline-danger fonts font_label">Admin</div>
+                                        </td>
+                                            {% else %}
+                                            <td>
+                                            <div class="badge badge-outline-primary fonts font_label">User</div>
+                                            </td>
+                                        {% endif %} 
+                                        <td>
+                                            	<div class="badge badge-outline-light fonts font_label">
+                                                <form action="" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                                                            <button style="background: none;color: inherit;border: none;font: inherit;cursor: pointer;"
+                                                                    type="submit" id="block_user" name="block_user">
+                                                                Block
+                                                            </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                    </tr>
+                                    {% endif %} 
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <br>
+                            <div class="pagination">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page={{ page_obj.previous_page_number }}">«</a>
+                                {% endif %}
+                                {% for pageNumber in paginator.page_range %}
+                                    <a href="?page={{ pageNumber }}"
+                                       class="{% if page_obj.number == pageNumber %}active{% endif %}">{{ pageNumber }}</a>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}">»</a>
+                                {% endif %}
+                            </div>
+                            <br>
+                            <br>
+                            <div class="badge badge-danger xl rounded font_label"><a style="color:white;"
+                                                                                     href="{% url 'main_page' %}">Back
+                                to main page</a></div>
+                        </div>
+                    </div>
+                    <div class="right-page">
+                        <div class="right-login animat-rate">
+                            <div class="bg_circle">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="cross"></div>
+                            <div class="cross1"></div>
+                            <div class="cross2"></div>
+                            <div class="dot"></div>
+                            <div class="dot1"></div>
+                            <div class="maincircle"></div>
+                            <div class="top-circle"></div>
+                            <div class="center-circle"></div>
+                            <div class="bottom-circle"></div>
+                            <div class="bottom-circle1"></div>
+                            <div class="right-circle"></div>
+                            <div class="right-circle1"></div>
+                            <img class="heart-logo" src="{% static 'images/login_signup/5.png' %}" alt="login logo"/><img
+                                class="has-logo" src="{% static 'images/login_signup/4.png' %}" alt="login logo"/><img
+                                class="login-img" src="{% static 'images/gallery/feedback.png' %}" alt="login logo"/><img
+                                class="boy-logo" src="{% static 'images/login_signup/6.png' %}" alt="login boy logo"/><img
+                                class="girl-logo" src="{% static 'images/login_signup/7.png' %}" alt="girllogo"/><img
+                                class="cloud-logo" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="cloud-logo1" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="cloud-logo2" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="cloud-logo3" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="cloud-logo4" src="{% static 'images/login_signup/2.png' %}" alt="login logo"/><img
+                                class="has-logo1" src="{% static 'images/login_signup/4.png' %}" alt="login logo"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
