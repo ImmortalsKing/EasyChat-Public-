@@ -30,7 +30,7 @@ EasyChatz is a private real-time chat platform built with Django and WebSockets.
 ## 📷 Screenshots
 
 ### 🏠 Homepage
-![Homepage](screenshots/main_page.png)
+![Homepage](screenshots/main_page_with_settings_view.png)
 
 ### 🖼️ Gallery
 ![Dashboard](screenshots/gallery.png)
@@ -39,7 +39,7 @@ EasyChatz is a private real-time chat platform built with Django and WebSockets.
 ![Doctor Introduction](screenshots/live_chat.png)
 
 ### 📝 Register Page
-![Medical Services](screenshots/register.png)
+![Medical Services](screenshots/Register.png)
 
 ### 💡 User Feedback Section
 ![User Dashboard](screenshots/feedbacks.png)
